@@ -25,44 +25,41 @@ let candidates = JSON.parse(localStorage.getItem("candidates")) || [];
 
 // ---------------- ADD CANDIDATE ----------------
 function addCandidate() {
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const skills = document.getElementById("skills").value.trim();
-  const exp = document.getElementById("exp").value.trim();
-  const ctc = document.getElementById("ctc").value.trim();
-  const notice = document.getElementById("notice").value.trim();
-  const status = document.getElementById("status").value;
-  const resumeInput = document.getElementById("resume");
+  const candidate = {
+    name: document.getElementById("name").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    skills: document.getElementById("skills").value.trim(),
+    exp: document.getElementById("exp").value.trim(),
+    ctc: document.getElementById("ctc").value.trim(),
+    notice: document.getElementById("notice").value.trim(),
+    status: document.getElementById("status").value,
+    resume: ""
+  };
 
-  if (!name || !skills) {
-    alert("Candidate Name and Skills are mandatory");
+  if (!candidate.name || !candidate.skills) {
+    alert("Candidate Name and Skills are required");
     return;
   }
 
+  const resumeInput = document.getElementById("resume");
+
+  // Resume optional
   if (resumeInput.files.length === 0) {
-    saveCandidate("");
+    saveCandidate(candidate);
     return;
   }
 
   const reader = new FileReader();
-  reader.onload = () => saveCandidate(reader.result);
+  reader.onload = function () {
+    candidate.resume = reader.result;
+    saveCandidate(candidate);
+  };
   reader.readAsDataURL(resumeInput.files[0]);
 }
 
-function saveCandidate(resumeData) {
-  candidates.push({
-    name,
-    email,
-    phone,
-    skills,
-    exp,
-    ctc,
-    notice,
-    status,
-    resume: resumeData
-  });
-
+function saveCandidate(candidate) {
+  candidates.push(candidate);
   localStorage.setItem("candidates", JSON.stringify(candidates));
   clearForm();
   render();
