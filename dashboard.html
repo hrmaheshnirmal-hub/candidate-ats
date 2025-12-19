@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Candidate ATS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h2>Candidate ATS Dashboard</h2>
+  <button onclick="logout()">Logout</button>
+</header>
+
+<section class="stats">
+  <div>Total Candidates: <span id="total">0</span></div>
+</section>
+
+<section class="form-box">
+  <h3>Add Candidate</h3>
+  <input id="name" placeholder="Name">
+  <input id="email" placeholder="Email">
+  <input id="phone" placeholder="Phone">
+  <input id="skills" placeholder="Skills">
+  <input id="exp" placeholder="Experience">
+  <input id="ctc" placeholder="CTC">
+  <input id="notice" placeholder="Notice Period">
+  <select id="status">
+    <option>Screening</option>
+    <option>Interview</option>
+    <option>Offer</option>
+    <option>Joined</option>
+  </select>
+  <input type="file" id="resume">
+  <button onclick="addCandidate()">Save Candidate</button>
+</section>
+
+<input id="search" placeholder="Search candidate..." onkeyup="render()">
+
+<table>
+<thead>
+<tr>
+<th>Name</th><th>Skills</th><th>Status</th><th>Resume</th>
+</tr>
+</thead>
+<tbody id="list"></tbody>
+</table>
+
+<button onclick="exportExcel()">Export Excel</button>
+
+<script src="script.js"></script>
+</body>
+</html>

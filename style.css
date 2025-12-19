@@ -1,0 +1,65 @@
+body {
+  font-family: Segoe UI, Arial;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 20px;
+}
+
+.login-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-box {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+}
+
+button {
+  background: #0078d4;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-box {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+
+.stats div {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
