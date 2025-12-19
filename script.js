@@ -7,7 +7,7 @@ function login() {
     localStorage.setItem("login", "true");
     window.location.href = "dashboard.html";
   } else {
-    alert("Invalid login");
+    alert("Invalid username or password");
   }
 }
 
@@ -20,7 +20,7 @@ if (window.location.pathname.includes("dashboard") && !localStorage.getItem("log
   window.location.href = "index.html";
 }
 
-// ---------------- ATS DATA ----------------
+// ---------------- DATA ----------------
 let candidates = JSON.parse(localStorage.getItem("candidates")) || [];
 
 // ---------------- ADD CANDIDATE ----------------
@@ -36,44 +36,39 @@ function addCandidate() {
   const resumeInput = document.getElementById("resume");
 
   if (!name || !skills) {
-    alert("Name and Skills are required");
+    alert("Candidate Name and Skills are mandatory");
     return;
   }
 
-  // Resume optional
   if (resumeInput.files.length === 0) {
-    saveCandidateData("");
+    saveCandidate("");
     return;
   }
 
   const reader = new FileReader();
-  reader.onload = function () {
-    saveCandidateData(reader.result);
-  };
+  reader.onload = () => saveCandidate(reader.result);
   reader.readAsDataURL(resumeInput.files[0]);
 }
 
-function saveCandidateData(resumeData) {
-  const candidate = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    skills: document.getElementById("skills").value,
-    exp: document.getElementById("exp").value,
-    ctc: document.getElementById("ctc").value,
-    notice: document.getElementById("notice").value,
-    status: document.getElementById("status").value,
+function saveCandidate(resumeData) {
+  candidates.push({
+    name,
+    email,
+    phone,
+    skills,
+    exp,
+    ctc,
+    notice,
+    status,
     resume: resumeData
-  };
+  });
 
-  candidates.push(candidate);
   localStorage.setItem("candidates", JSON.stringify(candidates));
-
   clearForm();
   render();
 }
 
-// ---------------- RENDER LIST ----------------
+// ---------------- RENDER ----------------
 function render() {
   const list = document.getElementById("list");
   const search = document.getElementById("search").value.toLowerCase();
@@ -89,20 +84,20 @@ function render() {
           <td>${c.name}</td>
           <td>${c.skills}</td>
           <td>${c.status}</td>
-          <td>${c.resume ? `<a href="${c.resume}" target="_blank">View</a>` : "—"}</td>
+          <td>${c.resume ? `<a href="${c.resume}" target="_blank">View</a>` : "-"}</td>
         </tr>
       `;
     });
 
-  if (total) total.innerText = candidates.length;
+  total.innerText = candidates.length;
 }
 
 // ---------------- CLEAR FORM ----------------
 function clearForm() {
-  document.querySelectorAll("input").forEach(i => i.value = "");
+  document.querySelectorAll(".form-box input").forEach(i => i.value = "");
 }
 
-// ---------------- EXPORT EXCEL ----------------
+// ---------------- EXPORT ----------------
 function exportExcel() {
   let csv = "Name,Email,Phone,Skills,Experience,CTC,Notice,Status\n";
   candidates.forEach(c => {
@@ -112,7 +107,7 @@ function exportExcel() {
   const blob = new Blob([csv], { type: "text/csv" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
-  link.download = "ATS-Candidates.csv";
+  link.download = "Candidates.csv";
   link.click();
 }
 
