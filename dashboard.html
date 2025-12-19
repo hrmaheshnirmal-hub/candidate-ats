@@ -19,12 +19,18 @@
 <div class="form-box">
   <h3>Add Candidate</h3>
 
-  <input id="name" placeholder="Candidate Name">
-  <input id="email" placeholder="Email">
-  <input id="phone" placeholder="Phone">
-  <input id="skills" placeholder="Skills">
-  <input id="exp" placeholder="Experience (Years)">
-  <input id="ctc" placeholder="CTC">
+  <input id="name" placeholder="Candidate Name" required>
+
+  <input id="email" type="email" placeholder="Email Address">
+
+  <input id="phone" type="tel" placeholder="Phone Number">
+
+  <input id="skills" placeholder="Skills (Java, SAP, React etc.)" required>
+
+  <input id="exp" type="number" placeholder="Experience (Years)">
+
+  <input id="ctc" placeholder="Current CTC">
+
   <input id="notice" placeholder="Notice Period">
 
   <select id="status">
@@ -34,7 +40,8 @@
     <option value="Joined">Joined</option>
   </select>
 
-  <input type="file" id="resume"> accept=".pdf,.doc,.docx">
+  <input type="file" id="resume" accept=".pdf,.doc,.docx">
+
   <button onclick="addCandidate()">Save Candidate</button>
 </div>
 
